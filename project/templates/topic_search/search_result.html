@@ -11,28 +11,35 @@
         </h1>
         <br>
 
-        {% if tweets %}
-            <div class="list-group">
-                {% for tweet in tweets %}
-                    <div class="row list-group-item">
-                        <div class="col-xs-1">
-                            <img width="42" height="42" src="{{tweet.profile_url}}">
-                        </div>
-                        <div class="col-xs-11">
-                            <h5 class="twitter-user-section">
-                                {{ tweet.user_name }} <small>@{{ tweet.user_screen_name }}</small>
-                                <span class="pull-right"><small><em>Created At:</em> {{ tweet.created_at }}</small></span>
-                            </h5>
-                            <div>
-                                {{ tweet.text | safe }}
+        <div class="search-result-section search-result-section-twitter">
+            {% if tweets %}
+                <div class="list-group">
+                    {% for tweet in tweets %}
+                        <div class="row list-group-item">
+                            <div class="col-xs-1">
+                                <img width="42" height="42" src="{{tweet.profile_url}}">
+                            </div>
+                            <div class="col-xs-11">
+                                <h5 class="twitter-user-section">
+                                    {{ tweet.user_name }} <small>@{{ tweet.user_screen_name }}</small>
+                                    <span class="pull-right"><small><em>Created At:</em> {{ tweet.created_at }}</small></span>
+                                </h5>
+                                <div>
+                                    {{ tweet.text | safe }}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
-            </div>
-        {% else %}
-            <div>Oops something wrong with twitter search, please refresh or search again.</div>
-        {% endif %}
+                    {% endfor %}
+                </div>
+            {% else %}
+                {% if 'Twitter' in errors %}
+                    <div>Sorry, something is wrong with twitter search, please refresh your browser or try a new search.</div>
+                {% else %}
+                    <div>Sorry, no tweets are found for this topic.</div>
+                {% endif %}
+            {% endif %}
+        </div>
+
     </div>
 
 {% endblock %}

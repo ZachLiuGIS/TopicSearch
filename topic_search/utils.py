@@ -3,6 +3,10 @@ from TwitterAPI import TwitterAPI
 from .app_settings import TWITTER_API_KEYS
 
 
+class TwitterAPIQueryError(Exception):
+        pass
+
+
 def format_date(date_):
     lst = date_.split(' ')
     lst.pop(-2)
@@ -54,19 +58,21 @@ def search_twitter_by_term(term):
     lang = 'en'
     count = 10
 
-    r = list(api.request('search/tweets', {'q': term, 'lang': lang, 'count': count}))
+    try:
+        items = []
+        r = list(api.request('search/tweets', {'q': term, 'lang': lang, 'count': count}))
 
-    items = []
+        for item in r:
+            if 'text' in item and 'created_at' in item and 'user' in item:
+                text = process_twitter_text(item['text'])
+                created_at = format_date(item['created_at'])
+                user_name = item['user']['name']
+                user_screen_name = item['user']['screen_name']
+                profile_url = item['user']['profile_image_url']
 
-    for item in r:
-        if 'text' in item and 'created_at' in item and 'user' in item:
-            text = process_twitter_text(item['text'])
-            created_at = format_date(item['created_at'])
-            user_name = item['user']['name']
-            user_screen_name = item['user']['screen_name']
-            profile_url = item['user']['profile_image_url']
-
-            item = TwitterItem(text, created_at, user_name, user_screen_name, profile_url)
-            items.append(item)
+                item = TwitterItem(text, created_at, user_name, user_screen_name, profile_url)
+                items.append(item)
+    except:
+        raise TwitterAPIQueryError
 
     return items
