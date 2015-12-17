@@ -16,8 +16,8 @@ import environ
 
 env = environ.Env()
 
-ROOT_DIR = environ.Path(__file__) - 3  # (/a/b/myfile.py - 3 = /)
-OUTER_DIR = environ.Path(__file__) - 4  # (/a/b/myfile.py - 3 = /)
+ROOT_DIR = environ.Path(__file__) - 2  # (/a/b/myfile.py - 3 = /)
+OUTER_DIR = environ.Path(__file__) - 3  # (/a/b/myfile.py - 3 = /)
 APPS_DIR = ROOT_DIR.path('project')
 
 

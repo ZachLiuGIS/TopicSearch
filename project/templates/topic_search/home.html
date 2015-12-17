@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Topic Search{% endblock title %}
+
+{% block content %}
+    <div class="row jumbotron">
+        <h1 class="text-center">Search Topic Here</h1>
+        <br>
+
+        <form action="{% url 'topic_search:search_result' %}" method="GET">
+          <div class="form-group">
+            <input type="text" name="term" class="form-control" id="id_tb_search_term" placeholder="Search Term">
+          </div>
+          <input id='id_btn_search_go' type="submit" class="btn btn-primary" value="Search"/>
+        </form>
+    </div>
+
+{% endblock %}
