@@ -17,13 +17,13 @@ def convert_links(text):
 
 def convert_hash_tags(text):
     pat_hash = re.compile('#(.*?)(\s|$|#)')
-    text = re.sub(pat_hash, r'<a href="https://twitter.com/hashtag/\1?src=hash" target="_blank">#\1</a>', text)
+    text = re.sub(pat_hash, r' <a href="https://twitter.com/hashtag/\1?src=hash" target="_blank">#\1</a> ', text)
     return text
 
 
 def convert_users(text):
-    pat_hash = re.compile('@(.*?):')
-    text = re.sub(pat_hash, r'<a href="https://twitter.com/\1" target="_blank">@\1</a>', text)
+    pat_hash = re.compile('@(.*?)(:|\s|$)')
+    text = re.sub(pat_hash, r' <a href="https://twitter.com/\1" target="_blank">@\1\2</a> ', text)
     return text
 
 
