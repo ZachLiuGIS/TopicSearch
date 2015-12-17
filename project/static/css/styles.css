@@ -1,3 +1,8 @@
 #project_content h1 {
 	font-size: 3.2em;
 }
+
+#project_content h5 {
+	margin: 1px;
+	margin-bottom: 5px;
+}
