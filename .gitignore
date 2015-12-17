@@ -28,3 +28,6 @@ nosetests.xml
 
 # virtual environments
 .env
+
+# database
+db.sqlite3
