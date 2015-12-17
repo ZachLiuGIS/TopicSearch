@@ -12,10 +12,11 @@
         <br>
 
         <div class="search-result-section search-result-section-twitter">
+            <h4>Twitter Search Result:</h4>
             {% if tweets %}
                 <div class="list-group">
                     {% for tweet in tweets %}
-                        <div class="row list-group-item">
+                        <div id='id_twitter_result_list' class="row list-group-item">
                             <div class="col-xs-1">
                                 <img width="42" height="42" src="{{tweet.profile_url}}">
                             </div>
