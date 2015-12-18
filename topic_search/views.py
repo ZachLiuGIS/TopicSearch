@@ -1,5 +1,5 @@
 from django.views.generic.base import TemplateView
-from .utils import search_twitter_by_term, TwitterAPIQueryError
+from .utils import search_twitter_by_term, search_wiki_by_term, TwitterAPIQueryError
 
 
 class HomeView(TemplateView):
@@ -36,5 +36,11 @@ class SearchResultView(TemplateView):
             context['errors'].append('Twitter')
 
         context['term'] = term
+
+        try:
+            wiki_results = search_wiki_by_term(term)
+            context['wikis'] = wiki_results
+        except:
+            context['errors'].append('Wiki')
 
         return context

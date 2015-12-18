@@ -12,7 +12,7 @@
         <br>
 
         <div class="search-result-section search-result-section-twitter">
-            <h4>Twitter Search Result:</h4>
+            <h4>Twitter Search Results:</h4>
             {% if tweets %}
                 <div class="list-group">
                     {% for tweet in tweets %}
@@ -37,6 +37,43 @@
                     <div>Sorry, something is wrong with twitter search, please refresh your browser or try a new search.</div>
                 {% else %}
                     <div>Sorry, no tweets are found for this topic.</div>
+                {% endif %}
+            {% endif %}
+        </div>
+
+        <hr>
+        <div class="search-result-section search-result-section-wiki">
+            <h4>Wiki Search Results:</h4>
+            {% if tweets %}
+                <div class="list-group">
+                    {% for wiki in wikis %}
+                        <div id='id_wiki_result_list' class="row list-group-item">
+                            <div class="col-xs-12">
+                                <h4 class="twitter-user-section">
+                                    Title: {{ wiki.title }}
+                                </h4>
+                                <h6>
+                                    Categories: <small>{{ wiki.categories}}</small>
+                                </h6>
+                                <div>
+                                    <strong>Summary: </strong>{{ wiki.summary }}
+                                </div>
+                                <br>
+                                <div>
+                                    <span>Read the full wiki page at: </span>
+                                    <a target="_blank"
+                                       href="https://en.wikipedia.org/w/index.php?title={{wiki.title}}&oldid={{wiki.revision_id}}">
+                                        https://en.wikipedia.org/w/index.php?title={{wiki.title}}&oldid={{wiki.revision_id}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {% if 'Wiki' in errors %}
+                    <div>Sorry, something is wrong with wiki search, please refresh your browser or try a new search.</div>
+                {% else %}
+                    <div>Sorry, no wikis are found for this topic.</div>
                 {% endif %}
             {% endif %}
         </div>

@@ -1,6 +1,7 @@
 import re
 from TwitterAPI import TwitterAPI
 from .app_settings import TWITTER_API_KEYS
+import wikipedia
 
 
 class TwitterAPIQueryError(Exception):
@@ -48,7 +49,16 @@ class TwitterItem(object):
         self.profile_url = profile_url
 
 
-def search_twitter_by_term(term):
+class WikiItem(object):
+
+    def __init__(self, title='', categories='', summary='', revision_id=''):
+        self.title = title
+        self.categories = categories
+        self.summary = summary
+        self.revision_id = revision_id
+
+
+def search_twitter_by_term(term, geo_search=False):
     consumer_key = TWITTER_API_KEYS['consumer_key']
     consumer_secret = TWITTER_API_KEYS['consumer_secret']
     access_token_key = TWITTER_API_KEYS['access_token_key']
@@ -60,7 +70,8 @@ def search_twitter_by_term(term):
 
     try:
         items = []
-        r = list(api.request('search/tweets', {'q': term, 'lang': lang, 'count': count}))
+        options = {'q': term, 'lang': lang, 'count': count}
+        r = list(api.request('search/tweets', options))
 
         for item in r:
             if 'text' in item and 'created_at' in item and 'user' in item:
@@ -75,4 +86,20 @@ def search_twitter_by_term(term):
     except:
         raise TwitterAPIQueryError
 
+    return items
+
+
+def search_wiki_by_term(term):
+    lang = 'en'
+    count = 5
+    # wikipedia.set_lang(lang)
+    items = []
+    names = wikipedia.search(term, results=count)
+    for name in names:
+        try:
+            page = wikipedia.page(name)
+            wiki = WikiItem(page.title, page.categories, page.summary, page.revision_id)
+            items.append(wiki)
+        except wikipedia.exceptions.WikipediaException:
+            continue
     return items

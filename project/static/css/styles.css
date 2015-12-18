@@ -6,3 +6,8 @@
 	margin: 1px;
 	margin-bottom: 5px;
 }
+
+#project_content .search-result-section {
+	margin: 20px;
+	padding: 10px;
+}

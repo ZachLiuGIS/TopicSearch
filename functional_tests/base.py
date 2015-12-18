@@ -19,17 +19,6 @@ class FunctionalTest(StaticLiveServerTestCase):
     def tearDown(self):
         self.browser.quit()
 
-    def login(self):
-        self.browser.get(self.server_url)
-        self.browser.wait.until(EC.text_to_be_present_in_element(
-            (By.XPATH, '//*[@id="bs-navbar-collapse-1"]/ul[2]/li[2]/a'), "Log In"
-        ))
-        link = self.browser.find_element_by_link_text('Log In')
-        link.click()
-        self.browser.find_element_by_id('id_login').send_keys('steve.smith@test.com')
-        self.browser.find_element_by_id('id_password').send_keys('Password1@')
-        self.browser.find_element_by_id('id_btn_login').click()
-
     def fill_text_box_by_id(self, id_, value):
         tb = self.browser.find_element_by_id(id_)
         tb.clear()
