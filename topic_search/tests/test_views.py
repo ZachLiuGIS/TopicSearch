@@ -22,7 +22,7 @@ class AboutViewTest(TestCase):
 class SearchResultViewTest(TestCase):
 
     def test_view_render_correct_template(self):
-        response = self.client.get('/topic_search/search-result/?term=text')
+        response = self.client.get('/topic_search/search_result/?term=text')
         self.assertTemplateUsed(response, 'topic_search/search_result.html')
 
     @patch('topic_search.views.search_twitter_by_term')
@@ -39,7 +39,7 @@ class SearchResultViewTest(TestCase):
             ))
         mock_search_twitter_by_term.return_value = items
 
-        response = self.client.get('/topic_search/search-result/?term=python')
+        response = self.client.get('/topic_search/search_result/?term=python')
         self.assertContains(response, "Twitter Search Result")
         self.assertContains(response, "id_twitter_result_list")
         self.assertContains(response, "user_10")
@@ -50,7 +50,7 @@ class SearchResultViewTest(TestCase):
         items = []
         mock_search_twitter_by_term.return_value = items
 
-        response = self.client.get('/topic_search/search-result/?term=python')
+        response = self.client.get('/topic_search/search_result/?term=python')
         self.assertContains(response, "Twitter Search Result")
         self.assertNotContains(response, "id_twitter_result_list")
         self.assertContains(response, "Sorry, no tweets are found for this topic.")
@@ -61,7 +61,7 @@ class SearchResultViewTest(TestCase):
         e = TwitterAPIQueryError()
         mock_search_twitter_by_term.side_effect = e
 
-        response = self.client.get('/topic_search/search-result/?term=python')
+        response = self.client.get('/topic_search/search_result/?term=python')
         self.assertContains(response, "Twitter Search Result")
         self.assertNotContains(response, "id_twitter_result_list")
         self.assertContains(response, "Sorry, something is wrong with twitter search")

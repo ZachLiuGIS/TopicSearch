@@ -21,3 +21,18 @@ class SearchTopicTest(FunctionalTest):
         btn_search = self.browser.find_element_by_id('id_btn_search_go')
         btn_search.click()
 
+        # He is directed to search results page
+        current_url = self.browser.current_url
+        self.assertRegex(current_url, r'topic_search/search_result/?')
+
+        # He sees tweets for that topic
+        content = self.browser.page_source
+        self.assertIn("Twitter Search Result:", content)
+        self.assertIn("python", content.lower())
+
+        # He refreshes the browser and the results for the same term are refreshed
+        self.browser.get(current_url)
+        content = self.browser.page_source
+        self.assertIn("Twitter Search Result:", content)
+        self.assertIn("python", content.lower())
+
