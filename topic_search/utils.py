@@ -8,6 +8,10 @@ class TwitterAPIQueryError(Exception):
         pass
 
 
+class WikiAPIQueryError(Exception):
+        pass
+
+
 def format_date(date_):
     lst = date_.split(' ')
     lst.pop(-2)
@@ -92,14 +96,18 @@ def search_twitter_by_term(term, geo_search=False):
 def search_wiki_by_term(term):
     lang = 'en'
     count = 5
-    # wikipedia.set_lang(lang)
+    wikipedia.set_lang(lang)
     items = []
-    names = wikipedia.search(term, results=count)
-    for name in names:
-        try:
-            page = wikipedia.page(name)
-            wiki = WikiItem(page.title, page.categories, page.summary, page.revision_id)
-            items.append(wiki)
-        except wikipedia.exceptions.WikipediaException:
-            continue
-    return items
+    try:
+        names = wikipedia.search(term, results=count)
+        for name in names:
+            try:
+                page = wikipedia.page(name)
+                wiki = WikiItem(page.title, page.categories, page.summary, page.revision_id)
+                items.append(wiki)
+            except wikipedia.exceptions.DisambiguationError:
+                continue
+        return items
+    except wikipedia.exceptions.WikipediaException:
+        raise WikiAPIQueryError
+
