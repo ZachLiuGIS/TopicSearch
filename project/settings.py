@@ -45,6 +45,9 @@ INSTALLED_APPS = (
     'django.contrib.sites',
 
     'functional_tests',
+    'topic_search',
+
+    'debug_toolbar',
 )
 
 MIDDLEWARE_CLASSES = (

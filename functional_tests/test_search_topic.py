@@ -27,12 +27,14 @@ class SearchTopicTest(FunctionalTest):
 
         # He sees tweets for that topic
         content = self.browser.page_source
-        self.assertIn("Twitter Search Result:", content)
+        self.assertIn("Twitter Search Results:", content)
+        self.assertIn("Wiki Search Results:", content)
         self.assertIn("python", content.lower())
 
         # He refreshes the browser and the results for the same term are refreshed
         self.browser.get(current_url)
         content = self.browser.page_source
-        self.assertIn("Twitter Search Result:", content)
+        self.assertIn("Twitter Search Results:", content)
+        self.assertIn("Wiki Search Results:", content)
         self.assertIn("python", content.lower())
 
