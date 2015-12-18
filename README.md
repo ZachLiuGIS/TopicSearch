@@ -9,6 +9,22 @@ search result page.
 
 Refresh the page will update the page with the latest results for the same search term.
 
+## Set up the start project server
+
+clone the repository
+
+go to the project directory
+
+install a python3 virtualenv environment
+
+run ```pip install -r requirements.txt``` to install python dependencies
+
+run ```python manage.py runserver``` to start the dev server
+
+go to localhost:8000 from your browser to see the application running
+
+
+
 ## Performance Profile
 
 On my local dev environment, a normal search result page will be rendered in about 10 seconds. So the performance is
