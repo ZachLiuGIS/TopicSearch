@@ -3,12 +3,26 @@
 {% block title %}Search Results{% endblock title %}
 
 {% block content %}
-    <div class="row">
+    <div class="row jumbotron">
         <h1 class="text-center">Search Results<br>
         {% if term %}
-            <small>Topic: {{term}}</small>
+            <small>
+                Topic: {{term}}
+            </small>
         {% endif %}
         </h1>
+        <br>
+        <div class="search_location text-success">
+            {% if location %}
+                <strong>Results are near this location: </strong><br>
+                {{ location }}
+            {% endif %}
+            <br>
+            {% if coordinates %}
+                (Latitude: {{ coordinates.lat | floatformat:2 }}, Longitude: {{ coordinates.lng | floatformat:2 }})
+            {% endif %}
+        </div>
+
         <br>
 
         <div class="search-result-section search-result-section-twitter">
@@ -34,9 +48,9 @@
                 </div>
             {% else %}
                 {% if 'Twitter' in errors %}
-                    <div>Sorry, something is wrong with twitter search, please refresh your browser or try a new search.</div>
+                    <div class="text-danger">Sorry, something is wrong with twitter search, please refresh your browser or try a new search.</div>
                 {% else %}
-                    <div>Sorry, no tweets are found for this topic.</div>
+                    <div class="text-info">Sorry, no tweets are found for this topic.</div>
                 {% endif %}
             {% endif %}
         </div>
@@ -71,9 +85,9 @@
                 </div>
             {% else %}
                 {% if 'Wiki' in errors %}
-                    <div>Sorry, something is wrong with wiki search, please refresh your browser or try a new search.</div>
+                    <div class="text-danger">Sorry, something is wrong with wiki search, please refresh your browser or try a new search.</div>
                 {% else %}
-                    <div>Sorry, no wikis are found for this topic.</div>
+                    <div class="text-info">Sorry, no wikis are found for this topic.</div>
                 {% endif %}
             {% endif %}
         </div>

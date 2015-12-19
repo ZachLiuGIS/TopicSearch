@@ -77,7 +77,7 @@ def search_twitter_by_term(term, geo_search=False, lat="", lng=""):
         options = {'q': term, 'lang': lang, 'count': count}
         if geo_search and lat and lng:
             options['geocode'] = lat + ',' + lng + ',100mi'
-            
+
         r = list(api.request('search/tweets', options))
 
         for item in r:
@@ -96,13 +96,18 @@ def search_twitter_by_term(term, geo_search=False, lat="", lng=""):
     return items
 
 
-def search_wiki_by_term(term, geo_search=False):
+def search_wiki_by_term(term, geo_search=False, lat="", lng=""):
     lang = 'en'
     count = 5
+    radius = 10000
     wikipedia.set_lang(lang)
+
     items = []
     try:
-        names = wikipedia.search(term, results=count)
+        if geo_search:
+            names = wikipedia.geosearch(float(lat), float(lng), title=term, results=count, radius=radius)
+        else:
+            names = wikipedia.search(term, results=count)
         for name in names:
             try:
                 page = wikipedia.page(name)

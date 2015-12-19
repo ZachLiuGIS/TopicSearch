@@ -15,3 +15,8 @@
 #project_content .form-message {
 	font-size: 0.8em;
 }
+
+#project_content .search_location {
+	font-size: 14px;
+	margin-left: 22px;
+}
