@@ -75,6 +75,9 @@ def search_twitter_by_term(term, geo_search=False):
     try:
         items = []
         options = {'q': term, 'lang': lang, 'count': count}
+        if geo_search:
+            options
+
         r = list(api.request('search/tweets', options))
 
         for item in r:
@@ -93,7 +96,7 @@ def search_twitter_by_term(term, geo_search=False):
     return items
 
 
-def search_wiki_by_term(term):
+def search_wiki_by_term(term, geo_search=False):
     lang = 'en'
     count = 5
     wikipedia.set_lang(lang)

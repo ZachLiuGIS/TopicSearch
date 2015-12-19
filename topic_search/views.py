@@ -29,8 +29,10 @@ class SearchResultView(TemplateView):
         context['errors'] = []
 
         term = self.request.GET["term"]
+        geo_search = True if "geo-search" in self.request.GET else False
+
         try:
-            twitter_results = search_twitter_by_term(term)
+            twitter_results = search_twitter_by_term(term, geo_search)
             context['tweets'] = twitter_results
         except TwitterAPIQueryError:
             context['errors'].append('Twitter')
@@ -38,7 +40,7 @@ class SearchResultView(TemplateView):
         context['term'] = term
 
         try:
-            wiki_results = search_wiki_by_term(term)
+            wiki_results = search_wiki_by_term(term, geo_search)
             context['wikis'] = wiki_results
         except:
             context['errors'].append('Wiki')

@@ -1,18 +1,32 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block title %}Topic Search{% endblock title %}
 
 {% block content %}
-    <div class="row jumbotron">
-        <h1 class="text-center">Search Topic Here</h1>
-        <br>
+<div class="row jumbotron">
+    <h1 class="text-center">Search Topic Here</h1>
+    <br>
 
-        <form action="{% url 'topic_search:search_result' %}" method="GET">
-          <div class="form-group">
+    <form id="id_form_topic_search" action="{% url 'topic_search:search_result' %}" method="GET">
+        <div class="form-group">
             <input type="text" name="term" class="form-control" id="id_tb_search_term" placeholder="Search Term">
-          </div>
-          <input id='id_btn_search_go' type="submit" class="btn btn-primary" value="Search"/>
-        </form>
-    </div>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input id="id_cb_geo_search" name="geo-search" type="checkbox"> Limit result to those near me
+            </label>
+        </div>
+        <input id='id_btn_search_go' type="submit" class="btn btn-primary" value="Search"/>
 
+        <input id="id_input_lat" type="hidden" name="lat" value="">
+        <input id="id_input_lng" type="hidden" name="lng" value="">
+    </form>
+</div>
 {% endblock %}
+
+{% block javascript %}
+{{ block.super }}
+<script src='{% static "js/topic_search_home.js"%}'></script>
+{% endblock %}
+
