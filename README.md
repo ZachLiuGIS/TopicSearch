@@ -7,6 +7,8 @@ This is a lightweight app that allows users to search their interested topics in
 Type in the topic of your interest in the search text box and click 'Search' button. You will be directed into a
 search result page. 
 
+Click any hot trending topics displayed in the word cloud to search that topic.
+
 Refresh the page will update the page with the latest results for the same search term.
 
 ## Set up the start project server
@@ -55,6 +57,8 @@ python manage.py test topic_search
 ## Future improvements:
 
 - Allow users to check a box and limit results to those near them
+
+- Display hot trending topics on search home page and allow users to click and search displayed topics.
 
 - Track terms searched by users and visualize statistics
 
