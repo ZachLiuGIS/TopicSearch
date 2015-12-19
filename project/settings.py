@@ -46,6 +46,10 @@ INSTALLED_APPS = (
 
     'functional_tests',
     'topic_search',
+    'rest_framework',
+
+    # rest cors support
+    'corsheaders',
 
     'debug_toolbar',
 )
@@ -148,4 +152,16 @@ MEDIA_URL = '/media/'
 
 #Django Site
 SITE_ID = 1
+
+# Change CORS settings as needed
+
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = (
+
+)
+
+CORS_ORIGIN_REGEX_WHITELIST = (
+    r'^(https?://)?localhost',
+    r'^(https?://)?127.',
+)
 

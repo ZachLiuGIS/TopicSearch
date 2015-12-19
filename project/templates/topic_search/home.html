@@ -24,14 +24,43 @@
 
         <div class="form-message">
             <p id="id_form_message_error" class="text-danger"></p>
+
             <p id="id_form_message_muted" class="text-muted"></p>
         </div>
     </form>
+    <div id="id_search_loader" class="loader-inner ball-pulse">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
+<div class="row">
+    <h3 class="text-center">Currently Hot Topics in US</h3>
+    <br>
+
+    <div id="id_trends_loader" class="loader-inner ball-spin-fade-loader">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <div id="id_topic_trends"></div>
+    <p id="id_trend_message_error" class="text-danger"></p>
 </div>
 {% endblock %}
 
 {% block javascript %}
 {{ block.super }}
 <script src='{% static "js/topic_search_home.js"%}'></script>
+{% endblock %}
+
+{% block css %}
+{{ block.super }}
 {% endblock %}
 

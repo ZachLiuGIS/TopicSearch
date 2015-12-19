@@ -62,6 +62,31 @@ class WikiItem(object):
         self.revision_id = revision_id
 
 
+def get_twitter_trend_topics():
+    consumer_key = TWITTER_API_KEYS['consumer_key']
+    consumer_secret = TWITTER_API_KEYS['consumer_secret']
+    access_token_key = TWITTER_API_KEYS['access_token_key']
+    access_token_secret = TWITTER_API_KEYS['access_token_secret']
+    api = TwitterAPI(consumer_key, consumer_secret, access_token_key, access_token_secret)
+
+    try:
+        items = []
+        # USA WOEID
+        options = {"id": "23424977"}
+        r = list(api.request('trends/place', options))
+
+        for item in r:
+            if 'tweet_volume' in item and item['tweet_volume'] is not None:
+                items.append({
+                    "text": item['name'],
+                    "weight": item['tweet_volume']
+                })
+    except:
+        raise TwitterAPIQueryError
+
+    return items
+
+
 def search_twitter_by_term(term, geo_search=False, lat="", lng=""):
     consumer_key = TWITTER_API_KEYS['consumer_key']
     consumer_secret = TWITTER_API_KEYS['consumer_secret']
