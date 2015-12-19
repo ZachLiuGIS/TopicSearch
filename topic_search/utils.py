@@ -62,7 +62,7 @@ class WikiItem(object):
         self.revision_id = revision_id
 
 
-def search_twitter_by_term(term, geo_search=False):
+def search_twitter_by_term(term, geo_search=False, lat="", lng=""):
     consumer_key = TWITTER_API_KEYS['consumer_key']
     consumer_secret = TWITTER_API_KEYS['consumer_secret']
     access_token_key = TWITTER_API_KEYS['access_token_key']
@@ -75,9 +75,9 @@ def search_twitter_by_term(term, geo_search=False):
     try:
         items = []
         options = {'q': term, 'lang': lang, 'count': count}
-        if geo_search:
-            options
-
+        if geo_search and lat and lng:
+            options['geocode'] = lat + ',' + lng + ',100mi'
+            
         r = list(api.request('search/tweets', options))
 
         for item in r:

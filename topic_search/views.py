@@ -32,7 +32,12 @@ class SearchResultView(TemplateView):
         geo_search = True if "geo-search" in self.request.GET else False
 
         try:
-            twitter_results = search_twitter_by_term(term, geo_search)
+            if geo_search:
+                lat = self.request.GET["lat"]
+                lng = self.request.GET["lng"]
+                twitter_results = search_twitter_by_term(term, geo_search, lat, lng)
+            else:
+                twitter_results = search_twitter_by_term(term, geo_search)
             context['tweets'] = twitter_results
         except TwitterAPIQueryError:
             context['errors'].append('Twitter')

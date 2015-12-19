@@ -11,3 +11,7 @@
 	margin: 20px;
 	padding: 10px;
 }
+
+#project_content .form-message {
+	font-size: 0.8em;
+}
