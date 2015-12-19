@@ -4,6 +4,9 @@
 
 {% block content %}
     <div class="row jumbotron">
+        <a class="btn btn-primary" href="{% url 'topic_search_home'%}">
+            <span class="fa fa-chevron-left"></span> Back to search page
+        </a>
         <h1 class="text-center">Search Results<br>
         {% if term %}
             <small>
@@ -14,7 +17,7 @@
         <br>
         <div class="search_location text-success">
             {% if location %}
-                <strong>Results are near this location: </strong><br>
+                <strong>Results near this location are searched: </strong><br>
                 {{ location }}
             {% endif %}
             <br>

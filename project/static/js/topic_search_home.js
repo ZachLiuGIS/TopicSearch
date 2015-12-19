@@ -30,8 +30,13 @@ $(function() {
 		}
 	}
 
+	var onSearchClick = function() {
+		$('#id_form_message_muted').text('Searching...Please Wait...');
+	}
+
 	var bindEvents = function() {
 		$('#id_cb_geo_search').on("click", updateGeoLocation);
+		$('#id_btn_search_go').on("click", onSearchClick);
 	}
 
 	var init = function() {

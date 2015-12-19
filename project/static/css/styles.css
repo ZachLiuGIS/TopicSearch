@@ -20,3 +20,13 @@
 	font-size: 14px;
 	margin-left: 22px;
 }
+
+#project_content a {
+	position: relative;
+	margin-left: 22px;
+}
+
+#project_content a .fa {
+	position: relative;
+	top: 1px;
+}
