@@ -2,6 +2,7 @@ from django.test import TestCase
 from unittest.mock import patch
 from datetime import datetime
 from topic_search.utils import TwitterItem, WikiItem, TwitterAPIQueryError, WikiAPIQueryError
+from topic_search.models import SearchTopic
 
 
 class HomeViewTest(TestCase):
@@ -107,4 +108,27 @@ class SearchResultViewTest(TestCase):
         self.assertContains(response, "Wiki Search Result")
         self.assertContains(response, "id_wiki_result_list")
         self.assertContains(response, "title_4")
+
+    @patch('topic_search.views.search_twitter_by_term')
+    @patch('topic_search.views.search_wiki_by_term')
+    def test_can_save_num_of_search(self, mock_search_wiki_by_term, mock_search_twitter_by_term):
+        wikis = []
+        for i in range(1, 6):
+            wikis.append(WikiItem(
+                title='title_' + str(i),
+                categories='categories_' + str(i),
+                summary='summary_' + str(i),
+                revision_id='revision_id_' + str(i)
+            ))
+
+        mock_search_wiki_by_term.return_value = wikis
+
+        items = []
+        mock_search_twitter_by_term.return_value = items
+        self.assertEqual(len(SearchTopic.objects.filter(name='python')), 0)
+        self.client.get('/topic_search/search_result/?term=python')
+        self.assertEqual(SearchTopic.objects.get(name='python').num_of_search, 1)
+        self.client.get('/topic_search/search_result/?term=python')
+        self.assertEqual(SearchTopic.objects.get(name='python').num_of_search, 2)
+
 
