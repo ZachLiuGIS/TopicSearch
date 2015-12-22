@@ -30,14 +30,13 @@ class SearchTopicView(APIView):
 
     def post(self, request):
 
-        serializer = SearchTopicSerializer(data=request.data)
-        if serializer.is_valid():
-            name = serializer.validated_data['name']
+        name = request.data['name']
+        if name:
             topic, created = SearchTopic.objects.get_or_create(name=name)
             topic.num_of_search += 1
             topic.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(SearchTopicSerializer(topic).data, status=status.HTTP_200_OK)
+        return Response('Search Term Not Provided', status=status.HTTP_400_BAD_REQUEST)
 
 
 class SearchTopicLikesView(APIView):
@@ -50,17 +49,15 @@ class SearchTopicLikesView(APIView):
 
     def post(self, request):
 
-        serializer = SearchTopicSerializer(data=request.data)
-        if serializer.is_valid():
-            name = serializer.validated_data['name']
+        name = request.data['name']
+        if name:
             topic, created = SearchTopic.objects.get_or_create(name=name)
-
             # handles if name is not searched before
-            if created is True:
+            if created:
                 topic.num_of_search += 1
             topic.likes += 1
             topic.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(SearchTopicSerializer(topic).data, status=status.HTTP_200_OK)
+        return Response('Search Term Not Provided', status=status.HTTP_400_BAD_REQUEST)
 
 

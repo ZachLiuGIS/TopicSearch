@@ -30,22 +30,18 @@ class SearchResultView(TemplateView):
 
     template_name = 'topic_search/search_result.html'
 
-    def dispatch(self, request, *args, **kwargs):
-        term = self.request.GET["term"]
-        if term:
-            topic, created = SearchTopic.objects.get_or_create(name=term)
-            topic.num_of_search += 1
-            topic.save()
-        return super(SearchResultView, self).dispatch(request, *args, **kwargs)
-
     def get_context_data(self, **kwargs):
         context = super(SearchResultView, self).get_context_data(**kwargs)
         context['errors'] = []
 
         term = self.request.GET["term"]
-        geo_search = True if "geo-search" in self.request.GET else False
-
+        topic, created = SearchTopic.objects.get_or_create(name=term)
+        topic.num_of_search += 1
+        topic.save()
         context['term'] = term
+        context['topic'] = topic
+
+        geo_search = True if "geo-search" in self.request.GET else False
 
         # get geo context data
         if geo_search:

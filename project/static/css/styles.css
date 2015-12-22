@@ -48,3 +48,18 @@
 #project_content a {
 	text-decoration: none;
 }
+
+#id_div_topic_likes {
+	margin-right: 30px;
+}
+
+#project_content ul {
+	margin-left: 0;
+	padding-left: 0;
+}
+
+#project_content li {
+	list-style: none;
+	margin-left: 5px;
+	padding-left: 0;
+}

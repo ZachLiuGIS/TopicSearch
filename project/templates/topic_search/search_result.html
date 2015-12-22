@@ -1,16 +1,24 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block title %}Search Results{% endblock title %}
 
 {% block content %}
     <div class="row jumbotron">
-        <a class="btn btn-primary" href="{% url 'topic_search_home'%}">
-            <span class="fa fa-chevron-left"></span> Back to search page
-        </a>
+        <div class="button-bar">
+            <a class="btn btn-primary" href="{% url 'topic_search_home'%}">
+                <span class="fa fa-chevron-left"></span> Back to search page
+            </a>
+            <div id="id_div_topic_likes" class="pull-right">
+                <button id="id_btn_like_topic" class="btn btn-primary">Like
+                    <span class="fa fa-thumbs-o-up"></span></button>
+                <span id="id_num_of_likes">{{topic.likes}}</span> likes
+            </div>
+        </div>
         <h1 class="text-center">Search Results<br>
         {% if term %}
             <small>
-                Topic: {{term}}
+                Topic: <span id="id_search_topic">{{term}}</span>
             </small>
         {% endif %}
         </h1>
@@ -97,4 +105,10 @@
 
     </div>
 
+{% endblock %}
+
+
+{% block javascript %}
+{{ block.super }}
+<script src='{% static "js/topic_search_result.js"%}'></script>
 {% endblock %}

@@ -51,9 +51,9 @@
         <h3>Most Liked:</h3>
         {% if top_likes %}
         <ul>
-            {% for topic in top_searches %}
-                <li>{{topic.name}} <span class="label label-success">{{topic.likes}}
-                    <span class="fa fa-thumbs-o-up"></span></span></span></li></li>
+            {% for topic in top_likes %}
+                <li><a href="{% url 'topic_search:search_result' %}?term={{ topic.name }}">{{topic.name}} <span class="label label-success">{{topic.likes}}
+                    <span class="fa fa-thumbs-o-up"></span></span></span></a></li>
             {% endfor %}
         </ul>
         {% endif %}

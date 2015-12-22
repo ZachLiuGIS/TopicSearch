@@ -63,15 +63,14 @@ $(function() {
 				display_word_cloud(data);
 			}
 			$('#id_trends_loader').hide();
-		})
+		});
 	};
-
-
 
 	var bindEvents = function() {
 		$('#id_cb_geo_search').on("click", updateGeoLocation);
 		$('#id_btn_search_go').on("click", onSearchClick);
 		$('#id_topic_trends').on("click", "a", display_searching);
+		$('#id_btn_like_topic').on("click", update_topic_likes);
 	};
 
 
