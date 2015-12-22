@@ -30,6 +30,14 @@ class SearchResultView(TemplateView):
 
     template_name = 'topic_search/search_result.html'
 
+    def dispatch(self, request, *args, **kwargs):
+        term = self.request.GET["term"]
+        if term:
+            topic, created = SearchTopic.objects.get_or_create(name=term)
+            topic.num_of_search += 1
+            topic.save()
+        return super(SearchResultView, self).dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super(SearchResultView, self).get_context_data(**kwargs)
         context['errors'] = []

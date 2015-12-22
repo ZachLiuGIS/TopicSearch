@@ -33,7 +33,7 @@ class SearchTopicView(APIView):
         serializer = SearchTopicSerializer(data=request.data)
         if serializer.is_valid():
             name = serializer.validated_data['name']
-            topic = SearchTopic.objects.get_or_create(name=name)
+            topic, created = SearchTopic.objects.get_or_create(name=name)
             topic.num_of_search += 1
             topic.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
@@ -53,10 +53,10 @@ class SearchTopicLikesView(APIView):
         serializer = SearchTopicSerializer(data=request.data)
         if serializer.is_valid():
             name = serializer.validated_data['name']
-            topic = SearchTopic.objects.get_or_create(name=name)
+            topic, created = SearchTopic.objects.get_or_create(name=name)
 
             # handles if name is not searched before
-            if topic.num_of_search == 0:
+            if created is True:
                 topic.num_of_search += 1
             topic.likes += 1
             topic.save()
