@@ -6,4 +6,7 @@ class SearchTopicSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SearchTopic
-        fields = ('id', 'name', 'likes', 'num_of_search')
+        fields = ('name', 'likes', 'num_of_search')
+        read_only_fields = ('likes', 'num_of_search',)
+
+

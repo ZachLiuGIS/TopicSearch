@@ -1,6 +1,7 @@
 from django.views.generic.base import TemplateView
 from .utils import search_twitter_by_term, search_wiki_by_term, TwitterAPIQueryError
 from geopy.geocoders import Nominatim
+from .models import SearchTopic
 
 
 class HomeView(TemplateView):
@@ -9,6 +10,10 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
+        search_topics = SearchTopic.objects.all().order_by('-num_of_search')[:10]
+        context['top_searches'] = search_topics
+        liked_topics = SearchTopic.objects.all().order_by('-likes')[:10]
+        context['top_likes'] = liked_topics
         return context
 
 

@@ -44,3 +44,7 @@
 #project_content .loader-inner > div {
     background: #AFEEEE;
 }
+
+#project_content a {
+	text-decoration: none;
+}
