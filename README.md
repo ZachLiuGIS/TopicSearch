@@ -9,6 +9,8 @@ search result page.
 
 Click any hot trending topics displayed in the word cloud to search that topic.
 
+The search home page will track all past searches and likes, and display top 10 searched and liked topics.
+
 Refresh the page will update the page with the latest results for the same search term.
 
 ## Set up the start project server
